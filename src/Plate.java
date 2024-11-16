@@ -24,8 +24,12 @@ public class Plate {
         this.b = b;
     }
 
+    public int sumAB(){
+        return a + b;
+    }
+
     @Override
     public String toString() {
-        return "(" + a + ", " + b + ')';
+        return a + " " + b;
     }
 }
