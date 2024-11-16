@@ -11,9 +11,8 @@ public class Main {
                 System.out.println("\n-------------------------\n");
                 List<Plate[]> championships = ExtractData.extractData(count);
                 for(int i = 0; i < championships.size(); i++){
-                    System.out.println(Arrays.toString(championships.get(i)));
+                    FirstSolution.firstSolution(championships.get(i));
                 }
-                //solucao
                 count++;
             } catch (FileNotFoundException e){
                 System.out.println("Caiu no catch");
