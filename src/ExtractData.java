@@ -7,11 +7,27 @@ import java.util.Scanner;
 public class ExtractData {
 
     public static List<Plate[]> extractData(int testCase) throws FileNotFoundException {
-        //Funciona como batch de todos os campeonatos do arquivo de texto
+        File directory = new File("data");
+        if (!directory.exists() || !directory.isDirectory()) {
+            throw new FileNotFoundException("O diretório 'data' não existe ou não é um diretório válido.");
+        }
+
+        File[] matchingFiles = directory.listFiles((dir, name) -> name.startsWith("in"));
+        if (matchingFiles == null || matchingFiles.length == 0) {
+            throw new FileNotFoundException("Nenhum arquivo 'in' encontrado na pasta 'data'.");
+        }
+
         File file = new File("data/in" + (testCase == 0 ? "" : testCase));
+        if (!file.exists()) {
+            if (testCase == 0){
+                throw new FileNotFoundException("O arquivo 'data/in' não foi encontrado.");
+            }else{
+                throw new FileNotFoundException("O arquivo 'data/in" + testCase + "' não foi encontrado.");
+            }
+        }
 
         Scanner scanner = new Scanner(file);
-        List<Plate[]> championships = new ArrayList<Plate[]>();
+        List<Plate[]> championships = new ArrayList<>();
 
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();

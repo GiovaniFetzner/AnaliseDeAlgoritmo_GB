@@ -14,7 +14,7 @@ public class Main {
                 }
                 count++;
             } catch (FileNotFoundException e){
-                System.out.println("Erro no arquivo");
+                System.out.println("Erro no arquivo: " + e.getMessage());
                 break;
             }
         }while (true);
