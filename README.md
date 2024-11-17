@@ -32,6 +32,12 @@ TrabalhoGrauB/
 - Abrir o terminal na pasta TrabalhoGrauB
 - Rodar os seguintes comandos:
 
+### Troca de algoritmo
+
+- Necessário entrar no Main e modificar o algoritmo que está sendo utilizado;
+  - Atualmente existem dois algoritmos, o firstSolution (metodologia aleatória) e o secondSolution (metologia força bruta);
+
+
 ```bin
   cd src
   javac *.java

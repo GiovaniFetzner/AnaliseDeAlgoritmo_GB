@@ -1,30 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class SecondSolution {
 
-    public static String secondSolution(Plate[] championship) {
+    public static String fourthSolution(Plate[] championship) {
         boolean evenSum = getGeneralSum(championship) % 2 == 0;
 
         if (evenSum) {
-            List<List<Plate>> results = generateInversions(championship);
-            int solution = 0;
-            for (List<Plate> objects : results) {
-
-                int top = 0;
-                int bottom = 0;
-
-                for (Plate plate : objects) {
-                    top += plate.getA();
-                    bottom += plate.getB();
-                }
-
-                if ((top > solution) && (top == bottom)) {
-                    solution = top;
-                }
-            }
+            int solution = findBestCombination(championship, 0, 0, 0);
             if (solution != 0) {
                 return solution + " nenhuma placa descartada";
             }
@@ -32,9 +16,9 @@ public class SecondSolution {
             List<Plate> discardedPlates = new ArrayList<>();
 
             while (championship.length != discardedPlates.size()) {
-
                 int minSum = Integer.MAX_VALUE;
                 Plate discartedPlate = new Plate(Integer.MAX_VALUE, Integer.MAX_VALUE);
+
                 for (Plate plate : championship) {
                     if ((plate.sumAB() < minSum) && (!discardedPlates.contains(plate))) {
                         minSum = plate.sumAB();
@@ -45,69 +29,73 @@ public class SecondSolution {
                 List<Plate> newPlateList = new ArrayList<>(Arrays.asList(championship));
                 newPlateList.remove(discartedPlate);
 
-                List<List<Plate>> results = generateInversions(newPlateList.toArray(new Plate[0]));
-                int solution = 0;
-                for (List<Plate> objects : results) {
+                Plate[] plates = newPlateList.toArray(new Plate[0]);
 
-                    int top = 0;
-                    int bottom = 0;
-
-                    for (Plate plate : objects) {
-                        top += plate.getA();
-                        bottom += plate.getB();
-                    }
-
-                    if ((top > solution) && (top == bottom)) {
-                        solution = top;
-                    }
-                }
+                int solution = findBestCombination(plates, 0, 0, 0);
                 if (solution != 0) {
                     return solution + " descartada a placa " + discartedPlate.getOrderedValues();
                 }
-                if (discardedPlates.size() == championship.length){
-                    return "impossivel";
-                }
             }
         }
-
         return "impossivel";
     }
 
-    public static List<List<Plate>> generateInversions(Plate[] championship) {
-        List<List<Plate>> results = new ArrayList<>();
-        generateInversionsRecursive(championship, 0, results);
-        return results;
-    }
-
-    private static void generateInversionsRecursive(Plate[] championship, int index, List<List<Plate>> results) {
+    private static int findBestCombination(Plate[] championship, int index, int top, int bottom) {
         if (index == championship.length) {
-            List<Plate> current = new ArrayList<>();
-            for (Plate plate : championship) {
-                current.add(new Plate(plate.getA(), plate.getB()));
+            if (top == bottom) {
+                return top;
             }
-            results.add(current);
-            return;
+            return 0;
         }
 
-        int increment = index == 0 ? 2 : 1;
-
-        generateInversionsRecursive(championship, index + increment, results);
+        int solution1 = findBestCombination(championship, index + 1,
+                top + championship[index].getA(), bottom + championship[index].getB());
 
         int a = championship[index].getA();
         int b = championship[index].getB();
         championship[index].setA(b);
         championship[index].setB(a);
-
-        generateInversionsRecursive(championship, index + increment, results);
-
+        int solution2 = findBestCombination(championship, index + 1,
+                top + championship[index].getA(), bottom + championship[index].getB());
         championship[index].setA(a);
         championship[index].setB(b);
+
+        return Math.max(solution1, solution2);
+    }
+
+    private static int findBestCombinationWithoutPlate(Plate[] championship, List<Plate> discardedPlates,
+                                                       int index, int top, int bottom) {
+        if (index == championship.length) {
+            if (top == bottom) {
+                return top;
+            }
+            return 0;
+        }
+
+        if (discardedPlates.contains(championship[index])) {
+            return findBestCombinationWithoutPlate(championship, discardedPlates, index + 1, top, bottom);
+        }
+
+        int solution1 = findBestCombinationWithoutPlate(championship, discardedPlates,
+                index + 1, top + championship[index].getA(), bottom + championship[index].getB());
+
+        int a = championship[index].getA();
+        int b = championship[index].getB();
+        championship[index].setA(b);
+        championship[index].setB(a);
+        int solution2 = findBestCombinationWithoutPlate(championship, discardedPlates,
+                index + 1, top + championship[index].getA(), bottom + championship[index].getB());
+        championship[index].setA(a);
+        championship[index].setB(b);
+
+        return Math.max(solution1, solution2);
     }
 
     private static int getGeneralSum(Plate[] championship) {
         int generalSum = 0;
-        for (Plate plate : championship)
+        for (Plate plate : championship) {
             generalSum += plate.sumAB();
+        }
         return generalSum;
     }
 }

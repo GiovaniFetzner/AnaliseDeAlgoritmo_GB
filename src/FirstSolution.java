@@ -39,7 +39,7 @@ public class FirstSolution {
                         discartedPlate = championship[indexDiscardedPlate];
                         discardedPlatesTested.add(indexDiscardedPlate);
                         solution = top;
-                        solutionString = solution + " descartada a placa " + discartedPlate.toString();
+                        solutionString = solution + " descartada a placa " + discartedPlate.getOrderedValues();
                     }
                 }
             } else {

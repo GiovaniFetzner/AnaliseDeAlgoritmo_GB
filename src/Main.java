@@ -9,9 +9,9 @@ public class Main {
                 System.out.println("\n-------------------------\n");
                 List<Plate[]> championships = ExtractData.extractData(count);
                 for(int i = 0; i < championships.size(); i++){
-                    //FirstSolution.firstSolution(championships.get(i));
+                    FirstSolution.firstSolution(championships.get(i));
                     //System.out.println(SecondSolution.secondSolution(championships.get(i)));
-                    System.out.println(FourthSolution.fourthSolution(championships.get(i)));
+                    //System.out.println(SecondSolution.fourthSolution(championships.get(i)));
                 }
                 count++;
             } catch (FileNotFoundException e){
