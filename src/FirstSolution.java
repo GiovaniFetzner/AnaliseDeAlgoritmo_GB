@@ -19,7 +19,7 @@ public class FirstSolution {
             invertPlates(championship, randomPlates);
 
             int top = 0;
-            int down = 0;
+            int bottom = 0;
             if (hasDiscartedPlate) {
 
                 int indexDiscardedPlate = (int) (Math.random() * championship.length);
@@ -30,9 +30,9 @@ public class FirstSolution {
                     if (j == indexDiscardedPlate)
                         continue;
                     top += championship[j].getA();
-                    down += championship[j].getB();
+                    bottom += championship[j].getB();
                 }
-                if (top == down && top >= solution) {
+                if (top == bottom && top >= solution) {
                     if (Objects.isNull(discartedPlate)
                             || (championship[indexDiscardedPlate].getA() <= championship[indexDiscardedPlate].getB()
                                     && championship[indexDiscardedPlate].getA() < discartedPlate.getA())) {
@@ -45,9 +45,9 @@ public class FirstSolution {
             } else {
                 for (int j = 1; j <= championship.length; j++) {
                     top += championship[j - 1].getA();
-                    down += championship[j - 1].getB();
+                    bottom += championship[j - 1].getB();
                 }
-                if (top == down && top > solution) {
+                if (top == bottom && top > solution) {
                     solution = top;
                     solutionString = solution + " nenhuma placa descartada";
                 }

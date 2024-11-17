@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ExtractData {
 
     public static List<Plate[]> extractData(int testCase) throws FileNotFoundException {
-
+        //Funciona como batch de todos os campeonatos do arquivo de texto
         File file = new File("data/in" + (testCase == 0 ? "" : testCase));
 
         Scanner scanner = new Scanner(file);
@@ -34,4 +34,5 @@ public class ExtractData {
         scanner.close();
         return championships;
     }
+
 }

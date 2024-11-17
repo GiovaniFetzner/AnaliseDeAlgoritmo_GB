@@ -11,7 +11,7 @@ public class Main {
                 List<Plate[]> championships = ExtractData.extractData(count);
                 for(int i = 0; i < championships.size(); i++){
                     //FirstSolution.firstSolution(championships.get(i));
-                    System.out.println(Third.generateInversions(championships.get(i)));
+                    System.out.println(SecondSolution.secondSolution(championships.get(i)));
                 }
                 count++;
             } catch (FileNotFoundException e){

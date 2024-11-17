@@ -6,38 +6,63 @@ import java.util.stream.Stream;
 public class SecondSolution {
 
     public static String secondSolution(Plate[] championship) {
-        // Verificar se a soma geral é par ou ímpar
-        boolean evenSum = getGeneralSum(championship) % 2 != 0;
+        boolean evenSum = getGeneralSum(championship) % 2 == 0;
 
         if (evenSum){
-            permutations(championship, 0, new ArrayList<Plate>());
-        }
+            List<List<Plate>> results = generateInversions(championship);
 
-        return evenSum ? "Soma ímpar, necessário remover uma placa!" : "Soma par, combinações geradas!";
-    }
+            int solution = 0;
+            for (List<Plate> objects : results) {
+                int top = 0;
+                int bottom = 0;
+                for (Plate plate: objects) {
+                   top +=  plate.getA();
+                   bottom +=  plate.getB();
+                }
 
-    private static boolean permutations(Plate[] championship, int indexInitial, List<Plate> chainPlate) {
-        chainPlate.add(championship[indexInitial]);
+                if((top > solution) && (top == bottom)){
+                    solution = top;
+                }
 
-        indexInitial++;
-        if (indexInitial == championship.length){
-            if(chainPlate.stream().mapToInt(Plate::getA).sum() ==
-                    chainPlate.stream().mapToInt(Plate::getB).sum()){
-                return true;
-            }else {
-                permutations(championship, 0, new ArrayList<Plate>());
+            }
+
+            if(solution != 0) {
+                return solution + " nenhuma placa descartada";
             }
         }
-        permutations(championship, indexInitial, chainPlate);
 
-        return false;
+        return "impossivel";
     }
 
+    public static List<List<Plate>> generateInversions(Plate[] championship) {
+        List<List<Plate>> results = new ArrayList<>();
+        generateInversionsRecursive(championship, 0, results);
+        return results;
+    }
 
-    private static void swap(Plate[] array, int i, int j) {
-        Plate temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+    private static void generateInversionsRecursive(Plate[] championship, int index, List<List<Plate>> results) {
+        if (index == championship.length) {
+            List<Plate> current = new ArrayList<>();
+            for (Plate plate : championship) {
+                current.add(new Plate(plate.getA(), plate.getB()));
+            }
+            results.add(current);
+            return;
+        }
+
+        int increment = index == 0 ? 2 : 1;
+
+        generateInversionsRecursive(championship, index + increment, results);
+
+        int a = championship[index].getA();
+        int b = championship[index].getB();
+        championship[index].setA(b);
+        championship[index].setB(a);
+
+        generateInversionsRecursive(championship, index + increment, results);
+
+        championship[index].setA(a);
+        championship[index].setB(b);
     }
 
     private static int getGeneralSum(Plate[] championship) {
