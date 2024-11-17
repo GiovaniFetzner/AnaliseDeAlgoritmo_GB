@@ -8,26 +8,66 @@ public class SecondSolution {
     public static String secondSolution(Plate[] championship) {
         boolean evenSum = getGeneralSum(championship) % 2 == 0;
 
-        if (evenSum){
+        if (evenSum) {
             List<List<Plate>> results = generateInversions(championship);
-
             int solution = 0;
             for (List<Plate> objects : results) {
+
                 int top = 0;
                 int bottom = 0;
-                for (Plate plate: objects) {
-                   top +=  plate.getA();
-                   bottom +=  plate.getB();
+
+                for (Plate plate : objects) {
+                    top += plate.getA();
+                    bottom += plate.getB();
                 }
 
-                if((top > solution) && (top == bottom)){
+                if ((top > solution) && (top == bottom)) {
                     solution = top;
                 }
-
             }
-
-            if(solution != 0) {
+            if (solution != 0) {
                 return solution + " nenhuma placa descartada";
+            }
+        } else {
+            boolean finish = false;
+            List<Plate> discartedPlates = new ArrayList<>();
+
+            while (championship.length != discartedPlates.size()) {
+
+                int minSum = Integer.MAX_VALUE;
+                Plate discartedPlate = new Plate(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                for (Plate plate : championship) {
+                    if ((plate.sumAB() < minSum) && (!discartedPlates.contains(plate))) {
+                        minSum = plate.sumAB();
+                        discartedPlate = plate;
+                    }
+                }
+                discartedPlates.add(discartedPlate);
+                List<Plate> newPlateList = new ArrayList<>(Arrays.asList(championship));
+                newPlateList.remove(discartedPlate);
+
+                List<List<Plate>> results = generateInversions(newPlateList.toArray(new Plate[0]));
+                int solution = 0;
+                for (List<Plate> objects : results) {
+
+                    int top = 0;
+                    int bottom = 0;
+
+                    for (Plate plate : objects) {
+                        top += plate.getA();
+                        bottom += plate.getB();
+                    }
+
+                    if ((top > solution) && (top == bottom)) {
+                        solution = top;
+                    }
+                }
+                if (solution != 0) {
+                    return solution + " descartada a placa " + discartedPlate.getOrderedValues();
+                }
+                if (discartedPlates.size() == championship.length){
+                    return "impossivel";
+                }
             }
         }
 

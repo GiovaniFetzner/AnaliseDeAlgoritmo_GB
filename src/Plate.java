@@ -32,4 +32,12 @@ public class Plate {
     public String toString() {
         return a + " " + b;
     }
+
+    public String getOrderedValues() {
+        if (getA() <= getB()){
+            return getA() + " " + getB();
+        }else {
+            return getB() + " " + getA();
+        }
+    }
 }
