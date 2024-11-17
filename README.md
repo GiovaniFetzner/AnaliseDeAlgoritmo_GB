@@ -5,7 +5,7 @@ Abraão M. Duarte e Giovani S. Fetzner
 ## Estrutura do Projeto
 
 ```bin
-TrabalhoGrauA/
+TrabalhoGrauB/
 ├── data/
 │   ├── in                     # Casos de Teste
 │   ├── in1
@@ -27,7 +27,9 @@ TrabalhoGrauA/
 
 ## Como Rodar
 
-- abrir o terminal na pasta TrabalhoGrauB
+- Colocar os casos de testes na pasta data, iniciando por "in" e enumerando sequencialmente até o último caso de teste desejado;
+-     OBS.: Os casos de testes serão lidos em sequência na pasta data até o último arquivo;
+- Abrir o terminal na pasta TrabalhoGrauB
 - Rodar os seguintes comandos:
 
 ```bin
