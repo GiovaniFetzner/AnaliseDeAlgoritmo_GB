@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class FirstSolution {
 
-    private static final int MULTIPLIER = 150;
+    private static final int MULTIPLIER = 200;
 
     public static void firstSolution(Plate[] championship) {
         boolean hasDiscartedPlate = getGeneralSum(championship) % 2 != 0;
