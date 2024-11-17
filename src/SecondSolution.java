@@ -29,20 +29,19 @@ public class SecondSolution {
                 return solution + " nenhuma placa descartada";
             }
         } else {
-            boolean finish = false;
-            List<Plate> discartedPlates = new ArrayList<>();
+            List<Plate> discardedPlates = new ArrayList<>();
 
-            while (championship.length != discartedPlates.size()) {
+            while (championship.length != discardedPlates.size()) {
 
                 int minSum = Integer.MAX_VALUE;
                 Plate discartedPlate = new Plate(Integer.MAX_VALUE, Integer.MAX_VALUE);
                 for (Plate plate : championship) {
-                    if ((plate.sumAB() < minSum) && (!discartedPlates.contains(plate))) {
+                    if ((plate.sumAB() < minSum) && (!discardedPlates.contains(plate))) {
                         minSum = plate.sumAB();
                         discartedPlate = plate;
                     }
                 }
-                discartedPlates.add(discartedPlate);
+                discardedPlates.add(discartedPlate);
                 List<Plate> newPlateList = new ArrayList<>(Arrays.asList(championship));
                 newPlateList.remove(discartedPlate);
 
@@ -65,7 +64,7 @@ public class SecondSolution {
                 if (solution != 0) {
                     return solution + " descartada a placa " + discartedPlate.getOrderedValues();
                 }
-                if (discartedPlates.size() == championship.length){
+                if (discardedPlates.size() == championship.length){
                     return "impossivel";
                 }
             }
