@@ -4,37 +4,36 @@ import java.util.List;
 
 public class SecondSolution {
 
-    public static String fourthSolution(Plate[] championship) {
-        boolean evenSum = getGeneralSum(championship) % 2 == 0;
+    public static String secondSolution(Plate[] championship) {
+        boolean hasDiscartedPlate = getGeneralSum(championship) % 2 != 0;
 
-        if (evenSum) {
+        if (!hasDiscartedPlate) {
             int solution = findBestCombination(championship, 0, 0, 0);
             if (solution != 0) {
                 return solution + " nenhuma placa descartada";
             }
-        } else {
-            List<Plate> discardedPlates = new ArrayList<>();
+        }
+        List<Plate> discardedPlates = new ArrayList<>();
 
-            while (championship.length != discardedPlates.size()) {
-                int minSum = Integer.MAX_VALUE;
-                Plate discartedPlate = new Plate(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        while (championship.length != discardedPlates.size()) {
+            int minSum = Integer.MAX_VALUE;
+            Plate discartedPlate = new Plate(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-                for (Plate plate : championship) {
-                    if ((plate.sumAB() < minSum) && (!discardedPlates.contains(plate))) {
-                        minSum = plate.sumAB();
-                        discartedPlate = plate;
-                    }
+            for (Plate plate : championship) {
+                if ((plate.sumAB() < minSum) && (!discardedPlates.contains(plate))) {
+                    minSum = plate.sumAB();
+                    discartedPlate = plate;
                 }
-                discardedPlates.add(discartedPlate);
-                List<Plate> newPlateList = new ArrayList<>(Arrays.asList(championship));
-                newPlateList.remove(discartedPlate);
+            }
+            discardedPlates.add(discartedPlate);
+            List<Plate> newPlateList = new ArrayList<>(Arrays.asList(championship));
+            newPlateList.remove(discartedPlate);
 
-                Plate[] plates = newPlateList.toArray(new Plate[0]);
+            Plate[] plates = newPlateList.toArray(new Plate[0]);
 
-                int solution = findBestCombination(plates, 0, 0, 0);
-                if (solution != 0) {
-                    return solution + " descartada a placa " + discartedPlate.getOrderedValues();
-                }
+            int solution = findBestCombination(plates, 0, 0, 0);
+            if (solution != 0) {
+                return solution + " descartada a placa " + discartedPlate.getOrderedValues();
             }
         }
         return "impossivel";
