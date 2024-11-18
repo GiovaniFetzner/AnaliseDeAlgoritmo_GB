@@ -32,18 +32,16 @@ public class SecondSolution {
             Plate[] plates = newPlateList.toArray(new Plate[0]);
 
             int solution = findBestCombination(plates, 0, 0, 0);
-            if (solution != 0) {
+            if (solution != 0)
                 return solution + " descartada a placa " + discartedPlate.getOrderedValues();
-            }
         }
         return "impossivel";
     }
 
     private static int findBestCombination(Plate[] championship, int index, int top, int bottom) {
         if (index == championship.length) {
-            if (top == bottom) {
+            if (top == bottom)
                 return top;
-            }
             return 0;
         }
 
@@ -56,34 +54,6 @@ public class SecondSolution {
         championship[index].setB(a);
         int solution2 = findBestCombination(championship, index + 1,
                 top + championship[index].getA(), bottom + championship[index].getB());
-        championship[index].setA(a);
-        championship[index].setB(b);
-
-        return Math.max(solution1, solution2);
-    }
-
-    private static int findBestCombinationWithoutPlate(Plate[] championship, List<Plate> discardedPlates,
-                                                       int index, int top, int bottom) {
-        if (index == championship.length) {
-            if (top == bottom) {
-                return top;
-            }
-            return 0;
-        }
-
-        if (discardedPlates.contains(championship[index])) {
-            return findBestCombinationWithoutPlate(championship, discardedPlates, index + 1, top, bottom);
-        }
-
-        int solution1 = findBestCombinationWithoutPlate(championship, discardedPlates,
-                index + 1, top + championship[index].getA(), bottom + championship[index].getB());
-
-        int a = championship[index].getA();
-        int b = championship[index].getB();
-        championship[index].setA(b);
-        championship[index].setB(a);
-        int solution2 = findBestCombinationWithoutPlate(championship, discardedPlates,
-                index + 1, top + championship[index].getA(), bottom + championship[index].getB());
         championship[index].setA(a);
         championship[index].setB(b);
 

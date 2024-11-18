@@ -10,15 +10,18 @@ TrabalhoGrauB/
 │   ├── in                     # Casos de Teste
 │   ├── in1
 │   ├── in2
-│   └── ...
+│   ├──  ...
 │   ├── out                    
 │   ├── out1
 │   ├── out2
 │   └── ...
 ├── src/
 │   ├── Main.java               # Arquivo principal para execução do projeto
-│   ├── PrimeiraSolucao.java    # Implementação da primeira solução
-│   └── SegundaSolucao.java     # Implementação da segunda solução
+│   ├── ExtractData.java        
+│   ├── Plate.java
+│   ├── FirstSolution.java      # Implementação da primeira solução
+│   ├── SecondSolution.java     # Implementação da segunda solução
+│   └── SecondSolutionDraft.java     
 └── README.md                   # Instruções e informações do projeto
 ```
 

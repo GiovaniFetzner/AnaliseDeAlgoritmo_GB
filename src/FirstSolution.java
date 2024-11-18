@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class FirstSolution {
 
-    private static final int MULTIPLIER = 100;
+    private static final int K = 500;
 
     public static String firstSolution(Plate[] championship) {
         boolean hasDiscartedPlate = getGeneralSum(championship) % 2 != 0;
@@ -13,7 +13,7 @@ public class FirstSolution {
         Plate discartedPlate = null;
         List<Integer> discardedPlatesTested = new ArrayList<>();
 
-        for (int i = 1; i <= MULTIPLIER * championship.length; i++) {
+        for (int i = 1; i <= K * championship.length; i++) {
             int numberRandomPlates = (int) (Math.random() * championship.length - 1) + 1;
             List<Integer> randomPlates = getRandomPlates(championship, numberRandomPlates);
             invertPlates(championship, randomPlates);
