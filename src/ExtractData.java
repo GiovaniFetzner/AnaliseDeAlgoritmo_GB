@@ -9,7 +9,7 @@ public class ExtractData {
     public static List<Plate[]> extractData(int testCase) throws FileNotFoundException {
         File directory = new File("../data");
         if (!directory.exists() || !directory.isDirectory())
-            throw new FileNotFoundException("O diretório 'data' não existe ou não é um diretório válido.");
+            throw new FileNotFoundException("O diretorio 'data' nao existe ou nao e um diretorio valido.");
 
         File[] matchingFiles = directory.listFiles((dir, name) -> name.startsWith("in"));
         if (matchingFiles == null || matchingFiles.length == 0)
